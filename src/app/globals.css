@@ -1,26 +1,144 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Backgrounds */
+  --color-bg-0: #000000;
+  --color-bg-1: #0d0f12;
+  --color-bg-2: #111418;
+  --color-bg-3: #181c21;
+  --color-bg-4: #1e232a;
+
+  /* Accent — acid green */
+  --color-green: #39ff14;
+  --color-green-dim: #2bcc10;
+  --color-green-10: rgba(57, 255, 20, 0.1);
+  --color-green-16: rgba(57, 255, 20, 0.16);
+  --color-green-24: rgba(57, 255, 20, 0.24);
+
+  /* Brand — logo / CTA (макет) */
+  --color-brand: #df1a22;
+  --color-brand-dim: #c4171e;
+
+  /* Accent — critical red */
+  --color-red: #ff2b2b;
+  --color-red-10: rgba(255, 43, 43, 0.1);
+  --color-red-16: rgba(255, 43, 43, 0.16);
+  --color-red-24: rgba(255, 43, 43, 0.24);
+
+  /* Text */
+  --color-t-high: rgba(255, 255, 255, 0.92);
+  --color-t-mid: rgba(255, 255, 255, 0.55);
+  --color-t-low: rgba(255, 255, 255, 0.28);
+  --color-t-hint: rgba(255, 255, 255, 0.14);
+
+  /* Dividers */
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-mid: rgba(255, 255, 255, 0.12);
+
+  /* Typography */
+  --font-display: var(--font-syne), ui-sans-serif, sans-serif;
+  --font-body: var(--font-dm-sans), ui-sans-serif, sans-serif;
+  --font-sf:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+    'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+
+  /* Radius */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Motion */
+  --animate-blink: blink 2.4s ease-in-out infinite;
+  --animate-scan: scan 1.8s linear infinite;
+  --animate-spin: spin 0.6s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes scan {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    width: 100%;
+  }
+
+  body {
+    @apply bg-bg-0 font-body text-t-high antialiased;
+    width: 100%;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      rgba(57, 255, 20, 0.04) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line-mid;
+  }
+
+  ::selection {
+    background: rgba(57, 255, 20, 0.2);
+    color: #39ff14;
+  }
+}
+
+@utility font-sf {
+  font-family: var(--font-sf);
+}
+
+@layer components {
+  .guest-showcase-layer {
+    top: var(--guest-layer-top-mobile);
+    height: var(--guest-layer-height-mobile);
+  }
+
+  @media (min-width: 768px) {
+    .guest-showcase-layer {
+      top: var(--guest-layer-top-desktop);
+      height: 100dvh;
+    }
+  }
 }

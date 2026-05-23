@@ -22,6 +22,13 @@
 
 # misc
 .DS_Store
+
+# исходные тяжёлые ассеты (оптимизированные — в public/assets)
+/assets/_originals/
+/assets/*.png
+/assets/*.mp4
+/assets/*.svg
+!/assets/README.md
 *.pem
 
 # debug
