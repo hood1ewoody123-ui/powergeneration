@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes } from 'react'
 import { cn } from '@/lib/cn'
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-1.5 border font-body text-[13px] font-medium tracking-wide whitespace-nowrap transition-[background,color,border-color,opacity] duration-[180ms] ease-out disabled:pointer-events-none disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-1.5 rounded-none border font-body text-[13px] font-medium tracking-wide whitespace-nowrap transition-[background,color,border-color,opacity] duration-[180ms] ease-out disabled:pointer-events-none disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -26,11 +26,11 @@ export const buttonVariants = cva(
           'border-brand bg-transparent font-medium tracking-wider text-brand uppercase hover:bg-brand/10',
       },
       size: {
-        sm: 'h-7 rounded-xs px-3 text-xs [&_svg]:size-3',
-        md: 'h-9 rounded-sm px-5 text-sm [&_svg]:size-3.5',
-        lg: 'h-11 rounded-sm px-6 text-sm [&_svg]:size-3.5',
-        icon: 'size-9 rounded-sm p-0 [&_svg]:size-3.5',
-        'icon-sm': 'size-7 rounded-xs p-0 [&_svg]:size-3',
+        sm: 'h-7 px-3 text-xs [&_svg]:size-3',
+        md: 'h-9 px-5 text-sm [&_svg]:size-3.5',
+        lg: 'h-11 px-6 text-sm [&_svg]:size-3.5',
+        icon: 'size-9 p-0 [&_svg]:size-3.5',
+        'icon-sm': 'size-7 p-0 [&_svg]:size-3',
       },
     },
     defaultVariants: {

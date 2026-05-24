@@ -1,8 +1,8 @@
 /** Смещение каждого следующего гостя вниз (vh) — ~25% перекрытие */
 export const GUEST_LAYER_STEP_VH = 24
 
-/** Хвост после последнего гостя */
-export const GUEST_SECTION_TAIL_VH = 56
+/** Хвост после последнего гостя — без лишней «чёрной» зоны перед программой */
+export const GUEST_SECTION_TAIL_VH = 6
 
 /** Высота мобильного слота — фигуры по центру экрана */
 export const GUEST_MOBILE_SLOT_VH = 88

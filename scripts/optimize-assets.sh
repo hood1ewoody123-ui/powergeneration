@@ -20,7 +20,7 @@ to_webp() {
 
 echo "→ Images (WebP, alpha preserved)"
 
-to_webp "$SRC/deskmuta.png"      "$OUT_IMG/desk-muta.webp"      2580 88
+to_webp "$SRC/deskmuta.png"      "$OUT_IMG/desk-muta.webp"      5160 90
 to_webp "$SRC/dias.png"          "$OUT_IMG/guests/dias.webp"          800 86
 to_webp "$SRC/diasfreze.png"     "$OUT_IMG/guests/dias-freeze.webp"   1600 88
 to_webp "$SRC/explosion.png"     "$OUT_IMG/guests/explosion.webp"     800 86

@@ -2,21 +2,20 @@ export type SkillLevel = 'beginner' | 'intermediate' | 'advanced'
 
 export type BattleCategory = 'solo' | '2vs2' | 'crew'
 
+export type FaqTag = 'general' | 'program' | 'housing' | 'payment'
+
 export interface FaqItem {
   id: string
   question: string
   answer: string
+  tag: FaqTag
 }
 
-export interface ArchiveShift {
-  id: string
-  year: string
-  title: string
-  cover: string
-}
+export type GuestFigureKind = 'freeze' | 'portrait'
 
 export interface GuestFigureAsset {
   src: string
+  kind: GuestFigureKind
   glow?: boolean
   /** Множитель размера: 1.2 = +20%, 0.7 = −30% */
   scale?: number

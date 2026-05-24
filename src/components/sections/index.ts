@@ -1,3 +1,5 @@
 export { AboutIntro } from './about-intro'
 export { GuestShowcase } from './guest-showcase'
 export { Hero } from './hero'
+export { ProgramDashboard } from './program-dashboard'
+export { RegisterForm } from './register-form'

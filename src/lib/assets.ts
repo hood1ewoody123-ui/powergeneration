@@ -2,6 +2,8 @@
 
 export const ASSETS = {
   logo: '/assets/images/logo.svg',
+  /** Широкий баннер Muta Born — full bleed под FAQ */
+  mainMuta: '/assets/images/desk-muta.webp',
   deskMuta: '/assets/images/desk-muta.webp',
   guests: {
     dias: '/assets/images/guests/dias.webp',
@@ -14,6 +16,13 @@ export const ASSETS = {
     jokerFreeze: '/assets/images/guests/joker-freeze.webp',
     tiger: '/assets/images/guests/tiger.webp',
     tigerFreeze: '/assets/images/guests/tiger-freeze.webp',
+  },
+  archive: {
+    photo01: '/assets/images/archive/photo-01.jpg',
+    photo02: '/assets/images/archive/photo-02.jpg',
+    photo03: '/assets/images/archive/photo-03.jpg',
+    photo04: '/assets/images/archive/photo-04.jpg',
+    photo05: '/assets/images/archive/photo-05.jpg',
   },
   video: {
     mainDesk: '/assets/video/main-desk.mp4',

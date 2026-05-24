@@ -78,8 +78,12 @@ export function GuestShowcaseLayer({ guest, index }: GuestShowcaseLayerProps) {
       <div className="relative h-full w-full md:hidden">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative h-[62vh] w-full max-w-[480px]">
-            <GuestFigure {...guest.left} alt="" side="left" grouped />
-            <GuestFigure {...guest.right} alt="" side="right" grouped />
+            {guest.left.kind === 'freeze' ? (
+              <GuestFigure {...guest.left} alt="" side="left" grouped />
+            ) : null}
+            {guest.right.kind === 'freeze' ? (
+              <GuestFigure {...guest.right} alt="" side="right" grouped />
+            ) : null}
           </div>
         </div>
         <div className="absolute inset-0 z-20 flex items-center justify-center px-4 text-center">

@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { buttonVariants } from '@/components/ui/button'
-import { HERO_CONTENT } from '@/lib/constants'
+import { HERO_CONTENT, SITE_CONTACTS } from '@/lib/constants'
 import { cn } from '@/lib/cn'
 
 const fade = {
@@ -15,21 +14,21 @@ const fade = {
   },
 }
 
-/** Те же горизонтальные отступы, что у логотипа в Nav */
 const shellClass = 'mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-10'
+
+const contactLinkClass =
+  'font-mono text-[11px] tracking-[0.12em] text-brand uppercase transition-opacity hover:opacity-70'
 
 export function HeroContent() {
   return (
     <>
-      {/* Mobile — под видео, в потоке документа */}
-      <div className={cn(shellClass, 'pt-6 pb-10 md:hidden')}>
+      <div className={cn(shellClass, 'pt-4 pb-8 md:hidden')}>
         <HeroCopy />
       </div>
 
-      {/* Desktop — поверх видео, снизу слева */}
       <div className="relative hidden flex-1 flex-col justify-end md:flex">
-        <div className={cn(shellClass, 'pb-14')}>
-          <HeroCopy className="max-w-sm" />
+        <div className={cn(shellClass, 'pb-[max(1.5rem,env(safe-area-inset-bottom))]')}>
+          <HeroCopy className="max-w-xl" />
         </div>
       </div>
     </>
@@ -46,33 +45,25 @@ function HeroCopy({ className }: { className?: string }) {
     >
       <motion.h1
         variants={fade}
-        className="font-display text-xl font-bold tracking-wide text-brand uppercase sm:text-2xl md:text-3xl"
+        className="font-display text-xl font-bold tracking-wide text-brand uppercase sm:text-2xl md:text-3xl lg:text-4xl"
       >
         {HERO_CONTENT.title}
       </motion.h1>
 
-      <motion.p
-        variants={fade}
-        className="mt-2 font-body text-sm leading-relaxed text-t-mid md:text-[15px]"
-      >
-        {HERO_CONTENT.description}
-      </motion.p>
-
       <motion.div
         variants={fade}
-        className="mt-5 flex flex-wrap items-center gap-2.5"
+        className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-1"
       >
-        <Link
-          href={HERO_CONTENT.cta.href}
-          className={buttonVariants({ variant: 'brand', size: 'md' })}
-        >
-          {HERO_CONTENT.cta.label}
+        <Link href={SITE_CONTACTS.phoneHref} className={contactLinkClass}>
+          {SITE_CONTACTS.phone}
         </Link>
         <Link
-          href={HERO_CONTENT.ctaSecondary.href}
-          className={buttonVariants({ variant: 'brand-outline', size: 'md' })}
+          href={SITE_CONTACTS.telegramHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={contactLinkClass}
         >
-          {HERO_CONTENT.ctaSecondary.label}
+          {SITE_CONTACTS.telegramHandle}
         </Link>
       </motion.div>
     </motion.div>

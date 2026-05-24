@@ -14,11 +14,11 @@ export function GuestShowcase() {
   return (
     <section
       id="guests"
-      className="relative scroll-mt-20 overflow-x-clip bg-bg-0 max-md:-mt-[10vh] md:mt-0"
+      className="relative z-10 scroll-mt-20 overflow-x-clip overflow-y-visible bg-bg-0 max-md:-mt-[10vh] md:mt-0"
       aria-label="Headliners and guests"
     >
       <div
-        className="relative mx-auto w-full max-w-[1400px] overflow-x-clip"
+        className="relative mx-auto w-full max-w-[1400px] overflow-x-clip overflow-y-visible"
         style={{ height: `${canvasVh}vh` }}
       >
         {GUEST_SHOWCASE.map((guest, index) => (

@@ -7,8 +7,16 @@ import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { buttonVariants } from '@/components/ui/button'
 import { ASSETS } from '@/lib/assets'
-import { CAMP_NAME, NAV_LINKS } from '@/lib/constants'
-const CTA = { href: '#register', label: 'Занять место' }
+import {
+  CAMP_NAME,
+  MUTA_BORN_BATTLE,
+  NAV_CTA_REGISTER,
+  NAV_LINKS,
+} from '@/lib/constants'
+import { cn } from '@/lib/cn'
+
+const navButtonClass =
+  'font-mono text-[10px] tracking-[0.14em] uppercase sm:text-[11px]'
 
 export function Nav() {
   const [open, setOpen] = useState(false)
@@ -35,7 +43,7 @@ export function Nav() {
       <header className="relative z-50 w-full pt-4 sm:pt-5">
         <div className="mx-auto flex w-full max-w-[1120px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-10">
           <Link
-            href="#top"
+            href="/#top"
             className="flex shrink-0 items-center gap-2"
             onClick={close}
           >
@@ -59,7 +67,7 @@ export function Nav() {
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={`/${link.href}`}
                 className="font-body text-[13px] text-brand lowercase transition-opacity hover:opacity-70"
               >
                 {link.label}
@@ -67,21 +75,34 @@ export function Nav() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
             <Link
-              href={CTA.href}
-              className={buttonVariants({
-                variant: 'brand',
-                size: 'sm',
-                className: 'hidden sm:inline-flex',
-              })}
+              href={MUTA_BORN_BATTLE.href}
+              className={cn(
+                buttonVariants({
+                  variant: 'brand-outline',
+                  size: 'sm',
+                }),
+                navButtonClass,
+                'hidden sm:inline-flex',
+              )}
             >
-              {CTA.label}
+              {MUTA_BORN_BATTLE.label}
+            </Link>
+            <Link
+              href={NAV_CTA_REGISTER.href}
+              className={cn(
+                buttonVariants({ variant: 'brand', size: 'sm' }),
+                navButtonClass,
+                'hidden sm:inline-flex',
+              )}
+            >
+              {NAV_CTA_REGISTER.label}
             </Link>
 
             <button
               type="button"
-              className="inline-flex size-9 items-center justify-center rounded-sm border border-brand/40 text-brand md:hidden"
+              className="inline-flex size-9 items-center justify-center rounded-none border border-brand/40 text-brand md:hidden"
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? 'Закрыть меню' : 'Открыть меню'}
@@ -122,7 +143,7 @@ export function Nav() {
                   transition={{ delay: 0.05 * i }}
                 >
                   <Link
-                    href={link.href}
+                    href={`/${link.href}`}
                     className="block border-b border-brand/10 py-3.5 font-body text-base text-brand lowercase"
                     onClick={close}
                   >
@@ -131,15 +152,29 @@ export function Nav() {
                 </motion.div>
               ))}
               <Link
-                href={CTA.href}
+                href={MUTA_BORN_BATTLE.href}
                 onClick={close}
-                className={buttonVariants({
-                  variant: 'brand',
-                  size: 'md',
-                  className: 'mt-3 w-full',
-                })}
+                className={cn(
+                  buttonVariants({
+                    variant: 'brand-outline',
+                    size: 'md',
+                  }),
+                  navButtonClass,
+                  'mt-3 w-full',
+                )}
               >
-                {CTA.label}
+                {MUTA_BORN_BATTLE.label}
+              </Link>
+              <Link
+                href={NAV_CTA_REGISTER.href}
+                onClick={close}
+                className={cn(
+                  buttonVariants({ variant: 'brand', size: 'md' }),
+                  navButtonClass,
+                  'mt-2 w-full',
+                )}
+              >
+                {NAV_CTA_REGISTER.label}
               </Link>
             </motion.nav>
           </>
