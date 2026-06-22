@@ -24,9 +24,25 @@ export interface BattleApplicationInsert {
 
 let adminClient: SupabaseClient | null = null
 
+export function getSupabaseUrl(): string | undefined {
+  return (
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ||
+    process.env.SUPABASE_URL?.trim() ||
+    undefined
+  )
+}
+
+export function getSupabaseServiceRoleKey(): string | undefined {
+  return (
+    process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
+    process.env.SUPABASE_SECRET_KEY?.trim() ||
+    undefined
+  )
+}
+
 export function getSupabaseAdmin(): SupabaseClient | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const url = getSupabaseUrl()
+  const serviceRoleKey = getSupabaseServiceRoleKey()
 
   if (!url || !serviceRoleKey) return null
 
@@ -41,8 +57,26 @@ export function getSupabaseAdmin(): SupabaseClient | null {
 }
 
 export function isSupabaseConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.SUPABASE_SERVICE_ROLE_KEY,
-  )
+  return Boolean(getSupabaseUrl() && getSupabaseServiceRoleKey())
+}
+
+export async function testSupabaseConnection(): Promise<{
+  ok: boolean
+  error?: string
+}> {
+  const supabase = getSupabaseAdmin()
+  if (!supabase) {
+    return { ok: false, error: 'Supabase env vars missing' }
+  }
+
+  const { error } = await supabase
+    .from('camp_applications')
+    .select('id')
+    .limit(1)
+
+  if (error) {
+    return { ok: false, error: error.message }
+  }
+
+  return { ok: true }
 }

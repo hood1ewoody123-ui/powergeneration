@@ -132,7 +132,7 @@ async function saveBattleToSupabase(
 
 async function sendCampTelegram(data: RegisterInput): Promise<void> {
   const lines = [
-    '🏕 <b>Новая заявка · лагерь</b>',
+    '🏕 Новая заявка · лагерь',
     '',
     formatTelegramField('Имя', data.name),
     formatTelegramField('Город', data.city),
@@ -155,7 +155,7 @@ async function sendCampTelegram(data: RegisterInput): Promise<void> {
 
 async function sendBattleTelegram(data: BattleRegisterInput): Promise<void> {
   const lines = [
-    '⚔️ <b>Новая заявка · Muta Born Battle</b>',
+    '⚔️ Новая заявка · Muta Born Battle',
     '',
     formatTelegramField('Имя', data.name),
     formatTelegramField('Ник', data.nickname),

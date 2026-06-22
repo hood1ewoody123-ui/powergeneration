@@ -8,8 +8,8 @@ function escapeHtml(value: string): string {
 }
 
 function getTelegramConfig(): { botToken: string; chatId: string } | null {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_CHAT_ID
+  const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim()
+  const chatId = process.env.TELEGRAM_CHAT_ID?.trim()
 
   if (!botToken || !chatId) return null
 
@@ -24,15 +24,18 @@ export async function sendTelegramMessage(text: string): Promise<void> {
   const config = getTelegramConfig()
   if (!config) return
 
+  const chatId = /^-?\d+$/.test(config.chatId)
+    ? Number(config.chatId)
+    : config.chatId
+
   const res = await fetch(
     `${TELEGRAM_API}/bot${config.botToken}/sendMessage`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: config.chatId,
+        chat_id: chatId,
         text,
-        parse_mode: 'HTML',
         disable_web_page_preview: true,
       }),
     },
@@ -48,8 +51,27 @@ export async function sendTelegramMessage(text: string): Promise<void> {
   }
 }
 
+export async function testTelegramConnection(): Promise<{
+  ok: boolean
+  error?: string
+}> {
+  if (!isTelegramConfigured()) {
+    return { ok: false, error: 'Telegram env vars missing' }
+  }
+
+  try {
+    await sendTelegramMessage('✅ PGC: тест подключения бота')
+    return { ok: true }
+  } catch (err) {
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : 'Telegram send failed',
+    }
+  }
+}
+
 export function formatTelegramField(label: string, value: string): string {
-  return `<b>${escapeHtml(label)}:</b> ${escapeHtml(value)}`
+  return `${label}: ${value}`
 }
 
 export { escapeHtml }

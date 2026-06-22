@@ -38,5 +38,29 @@ create index if not exists battle_applications_created_at_idx
 alter table public.camp_applications enable row level security;
 alter table public.battle_applications enable row level security;
 
--- Публичный доступ только на чтение/запись через service role (API Next.js).
 -- Anon/authenticated клиентам доступ закрыт.
+-- Service role (API Next.js) обходит RLS.
+
+create policy "service_role insert camp"
+  on public.camp_applications
+  for insert
+  to service_role
+  with check (true);
+
+create policy "service_role read camp"
+  on public.camp_applications
+  for select
+  to service_role
+  using (true);
+
+create policy "service_role insert battle"
+  on public.battle_applications
+  for insert
+  to service_role
+  with check (true);
+
+create policy "service_role read battle"
+  on public.battle_applications
+  for select
+  to service_role
+  using (true);

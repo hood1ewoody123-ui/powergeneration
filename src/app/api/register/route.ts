@@ -26,7 +26,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     await submitCampApplication(data, { ip })
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true, v: 2 })
   } catch (err) {
     if (err instanceof ZodError) {
       return NextResponse.json(
