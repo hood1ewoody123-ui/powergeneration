@@ -5,7 +5,7 @@ const MUTA_HEIGHT = 1853
 
 /**
  * Декоративный баннер: фон на всю ширину viewport, без обрезки layout-ом.
- * Высота слота = пропорции файла; картинка чуть крупнее слота (−4% inset), чтобы края не «съедались».
+ * Центр — лёгкая пульсация + зелёная подсветка под логотипом.
  */
 export function MutaBannerOverlay() {
   const aspectPercent = (MUTA_HEIGHT / MUTA_WIDTH) * 100
@@ -34,15 +34,18 @@ export function MutaBannerOverlay() {
               height: '110%',
             }}
           >
-            <img
-              src={ASSETS.mainMuta}
-              alt=""
-              width={MUTA_WIDTH}
-              height={MUTA_HEIGHT}
-              className="block h-full w-full object-contain object-center"
-              decoding="async"
-              loading="lazy"
-            />
+            <div className="muta-banner-glow" aria-hidden />
+            <div className="muta-banner-pulse">
+              <img
+                src={ASSETS.mainMuta}
+                alt=""
+                width={MUTA_WIDTH}
+                height={MUTA_HEIGHT}
+                className="block h-full w-full object-contain object-center"
+                decoding="async"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </div>

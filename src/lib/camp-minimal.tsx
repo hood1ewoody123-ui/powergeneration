@@ -26,6 +26,47 @@ export const CAMP_MIN = {
   fieldError: 'font-mono text-[10px] text-green/75',
 } as const
 
+/** Острые панели — секции от registration и ниже */
+export const CAMP_PANEL = {
+  stack: 'flex flex-col gap-4 md:gap-5',
+  inner: 'p-6 sm:p-8 md:p-10',
+  innerCompact: 'p-5 sm:p-6 md:p-8',
+  section: 'py-12 md:py-16',
+  base: 'rounded-none border bg-bg-0',
+  green: 'border-green/15',
+  brand: 'border-brand/30',
+  cardGreen: 'rounded-none border border-green/15 bg-bg-0',
+  cardBrand: 'rounded-none border border-brand/30 bg-bg-0',
+} as const
+
+export type CampPanelVariant = 'green' | 'brand'
+
+const panelVariantClass: Record<CampPanelVariant, string> = {
+  green: CAMP_PANEL.green,
+  brand: CAMP_PANEL.brand,
+}
+
+export function CampPanel({
+  id,
+  variant = 'green',
+  className,
+  children,
+}: {
+  id?: string
+  variant?: CampPanelVariant
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <div
+      id={id}
+      className={cn(CAMP_PANEL.base, panelVariantClass[variant], className)}
+    >
+      {children}
+    </div>
+  )
+}
+
 /** Зелёная кнопка без скругления — дашборд и ниже */
 export function campButtonClassName(className?: string): string {
   return cn(
@@ -61,20 +102,26 @@ export function CampBlock({
   id,
   title,
   intro,
+  variant = 'green',
   className,
   children,
 }: {
   id?: string
   title: string
   intro?: string
+  variant?: CampPanelVariant
   className?: string
   children?: ReactNode
 }) {
   return (
-    <div id={id} className={cn(CAMP_MIN.block, className)}>
-      <h2 className={CAMP_MIN.title}>{title}</h2>
-      {intro ? <p className={cn(CAMP_MIN.body, 'mt-6')}>{intro}</p> : null}
-      {children}
-    </div>
+    <CampPanel id={id} variant={variant} className={className}>
+      <div className={CAMP_PANEL.inner}>
+        <h2 className={CAMP_MIN.title}>{title}</h2>
+        {intro ? (
+          <p className={cn(CAMP_MIN.body, 'mt-4 md:mt-5')}>{intro}</p>
+        ) : null}
+        {children}
+      </div>
+    </CampPanel>
   )
 }

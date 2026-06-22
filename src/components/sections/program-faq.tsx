@@ -35,7 +35,7 @@ export function ProgramFaq() {
       intro="Ответы на частые вопросы. Не нашли нужное — напишите в заявке."
     >
       <div
-        className="mt-10 flex flex-wrap gap-x-6 gap-y-2"
+        className="mt-8 flex flex-wrap gap-x-6 gap-y-2"
         role="group"
         aria-label="Фильтр вопросов"
       >
@@ -58,14 +58,14 @@ export function ProgramFaq() {
         })}
       </div>
 
-      <ul className={cn('mt-12', CAMP_MIN.rule)}>
+      <ul className="mt-8 divide-y divide-green/10">
         {items.map((item) => {
           const open = openId === item.id
           return (
-            <li key={item.id} className={CAMP_MIN.rule}>
+            <li key={item.id}>
               <button
                 type="button"
-                className="flex w-full items-start justify-between gap-8 py-6 text-left md:py-8"
+                className="flex w-full items-start justify-between gap-8 px-5 py-5 text-left md:px-6 md:py-6"
                 aria-expanded={open}
                 onClick={() => setOpenId(open ? null : item.id)}
               >
@@ -101,7 +101,7 @@ export function ProgramFaq() {
                     transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <p className={cn(CAMP_MIN.quote, 'pb-6 md:pb-8')}>
+                    <p className={cn(CAMP_MIN.quote, 'px-5 pb-5 md:px-6 md:pb-6')}>
                       {item.answer}
                     </p>
                   </motion.div>

@@ -54,6 +54,8 @@
   --animate-blink: blink 2.4s ease-in-out infinite;
   --animate-scan: scan 1.8s linear infinite;
   --animate-spin: spin 0.6s linear infinite;
+  --animate-muta-pulse: muta-pulse 3.6s ease-in-out infinite;
+  --animate-muta-glow: muta-glow 3.6s ease-in-out infinite;
 }
 
 @keyframes blink {
@@ -78,6 +80,28 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes muta-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.028);
+  }
+}
+
+@keyframes muta-glow {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  50% {
+    opacity: 0.52;
+    transform: translate(-50%, -50%) scale(1.06);
   }
 }
 
@@ -139,6 +163,40 @@
     .guest-showcase-layer {
       top: var(--guest-layer-top-desktop);
       height: 100dvh;
+    }
+  }
+
+  .muta-banner-glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 0;
+    height: min(32vw, 240px);
+    width: min(32vw, 240px);
+    border-radius: 999px;
+    background: rgba(57, 255, 20, 0.35);
+    filter: blur(48px);
+    pointer-events: none;
+    animation: var(--animate-muta-glow);
+  }
+
+  .muta-banner-pulse {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transform-origin: center center;
+    animation: var(--animate-muta-pulse);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .muta-banner-glow,
+    .muta-banner-pulse {
+      animation: none;
+    }
+
+    .muta-banner-glow {
+      opacity: 0.35;
+      transform: translate(-50%, -50%) scale(1);
     }
   }
 }

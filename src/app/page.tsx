@@ -16,9 +16,11 @@ export default function Home() {
       <Hero />
       <AboutIntro />
       <GuestShowcase />
-      <RegisterForm />
-      <ProgramDashboard />
-      <CampMutaCta />
+      <div className="border-t border-green/15">
+        <RegisterForm />
+        <ProgramDashboard />
+        <CampMutaCta />
+      </div>
       <SiteFooter />
     </main>
   )

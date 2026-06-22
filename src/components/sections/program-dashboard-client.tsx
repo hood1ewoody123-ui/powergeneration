@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { ProgramDashboardModal } from '@/components/sections/program-dashboard-modal'
 import { Modal } from '@/components/ui/modal'
-import { campButtonClassName, CAMP_MIN } from '@/lib/camp-minimal'
+import { campButtonClassName, CAMP_PANEL } from '@/lib/camp-minimal'
 import { cn } from '@/lib/cn'
 import { PROGRAM_PILLARS } from '@/lib/program'
 import type { ProgramPillar } from '@/types/program'
@@ -13,11 +13,7 @@ export function ProgramDashboardClient() {
 
   return (
     <>
-      <ul
-        className={cn(
-          'mt-10 divide-y divide-green/10 border-t border-green/10',
-        )}
-      >
+      <ul className="mt-8 divide-y divide-green/10">
         {PROGRAM_PILLARS.map((pillar, index) => {
           const hasModal = Boolean(pillar.modal)
           const indexLabel = String(index + 1).padStart(2, '0')
@@ -25,7 +21,7 @@ export function ProgramDashboardClient() {
           return (
             <li
               key={pillar.id}
-              className="grid gap-5 py-8 md:grid-cols-[minmax(0,11rem)_1fr_auto] md:items-start md:gap-8 md:py-9"
+              className="grid gap-5 p-5 md:grid-cols-[minmax(0,11rem)_1fr_auto] md:items-start md:gap-8 md:p-6"
             >
               <div className="flex items-baseline gap-3 md:flex-col md:gap-1">
                 <span className="font-mono text-[10px] tracking-[0.2em] text-green/40">
