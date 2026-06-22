@@ -25,10 +25,19 @@ export async function GET(req: Request): Promise<Response> {
     telegram = await testTelegramConnection()
   }
 
+  let supabaseHost: string | null = null
+  try {
+    const rawUrl = getSupabaseUrl()
+    supabaseHost = rawUrl ? new URL(rawUrl).host : null
+  } catch {
+    supabaseHost = 'invalid-url'
+  }
+
   return Response.json({
     version: 'submissions-v2',
     env: {
       supabaseUrl: Boolean(getSupabaseUrl()),
+      supabaseHost,
       supabaseKey: Boolean(getSupabaseServiceRoleKey()),
       telegramToken: Boolean(process.env.TELEGRAM_BOT_TOKEN?.trim()),
       telegramChatId: Boolean(process.env.TELEGRAM_CHAT_ID?.trim()),

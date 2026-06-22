@@ -40,14 +40,6 @@ export async function submitCampApplication(
   data: RegisterInput,
   meta: SubmissionMeta,
 ): Promise<void> {
-  if (isSupabaseConfigured()) {
-    await saveCampToSupabase(data, meta)
-  }
-
-  if (isTelegramConfigured()) {
-    await sendCampTelegram(data)
-  }
-
   if (!isSubmissionBackendConfigured()) {
     if (process.env.NODE_ENV === 'development') {
       console.info('[register] new application (no backend configured)', data)
@@ -55,26 +47,78 @@ export async function submitCampApplication(
     }
     throw new Error('Submission backend is not configured')
   }
+
+  const errors: string[] = []
+  let saved = false
+  let notified = false
+
+  if (isSupabaseConfigured()) {
+    try {
+      await saveCampToSupabase(data, meta)
+      saved = true
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Supabase error'
+      errors.push(message)
+      console.error('[register] supabase failed', err)
+    }
+  }
+
+  if (isTelegramConfigured()) {
+    try {
+      await sendCampTelegram(data)
+      notified = true
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Telegram error'
+      errors.push(message)
+      console.error('[register] telegram failed', err)
+    }
+  }
+
+  if (!saved && !notified) {
+    throw new Error(errors.join(' · ') || 'All backends failed')
+  }
 }
 
 export async function submitBattleApplication(
   data: BattleRegisterInput,
   meta: SubmissionMeta,
 ): Promise<void> {
-  if (isSupabaseConfigured()) {
-    await saveBattleToSupabase(data, meta)
-  }
-
-  if (isTelegramConfigured()) {
-    await sendBattleTelegram(data)
-  }
-
   if (!isSubmissionBackendConfigured()) {
     if (process.env.NODE_ENV === 'development') {
       console.info('[battle-register] new application (no backend configured)', data)
       return
     }
     throw new Error('Submission backend is not configured')
+  }
+
+  const errors: string[] = []
+  let saved = false
+  let notified = false
+
+  if (isSupabaseConfigured()) {
+    try {
+      await saveBattleToSupabase(data, meta)
+      saved = true
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Supabase error'
+      errors.push(message)
+      console.error('[battle-register] supabase failed', err)
+    }
+  }
+
+  if (isTelegramConfigured()) {
+    try {
+      await sendBattleTelegram(data)
+      notified = true
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Telegram error'
+      errors.push(message)
+      console.error('[battle-register] telegram failed', err)
+    }
+  }
+
+  if (!saved && !notified) {
+    throw new Error(errors.join(' · ') || 'All backends failed')
   }
 }
 
@@ -101,7 +145,6 @@ async function saveCampToSupabase(
   const { error } = await supabase.from('camp_applications').insert(row)
 
   if (error) {
-    console.error('[register] supabase insert failed', error.message, error.details)
     throw new Error(`Supabase: ${error.message}`)
   }
 }
@@ -125,7 +168,6 @@ async function saveBattleToSupabase(
   const { error } = await supabase.from('battle_applications').insert(row)
 
   if (error) {
-    console.error('[battle-register] supabase insert failed', error.message, error.details)
     throw new Error(`Supabase: ${error.message}`)
   }
 }
